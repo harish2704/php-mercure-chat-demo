@@ -1,0 +1,24 @@
+{
+	frankenphp
+	order php_server before file_server
+}
+
+{$BIND_ADDR} {
+	root * public
+	encode gzip
+	php_server
+
+	mercure {
+		transport bolt {
+			path mercure.db
+		}
+		publisher_jwt {$PUBLISHER_JWT}
+		subscriber_jwt {$SUBSCRIBER_JWT}
+		cors_origins *
+		cors_allowed_origins: "*"
+		# Enable cookie-based authentication
+		use_cookie_auth: true
+		cookie_name: "{$MERCURE_COOKIE_NAME}"
+		cors_allowed_credentials: true
+	}
+}
