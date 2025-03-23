@@ -68,7 +68,7 @@ switch ($path) {
         
     default:
         // Serve the frontend
-        if (file_exists(__DIR__ . '/../frontend' . $path)) {
+        if ( $path !== '/' && file_exists(__DIR__ . '/../frontend' . $path)) {
             $response->setContent(file_get_contents(__DIR__ . '/../frontend' . $path));
             
             if (str_ends_with($path, '.js')) {
